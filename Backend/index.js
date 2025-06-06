@@ -2,18 +2,21 @@ import express from 'express';
 import Urls from './database.js';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import dotenv from 'dotenv';
+
 const connectDB = async () => {
     try{
-        await mongoose.connect("MONGO_URI");
-        console.log("Connected to Database");
+        await mongoose.connect(process.env.MONGO_URI);
+        console.log(`Connected to Database`);
     }catch(error){
-        console.log("Cannot connect to Database");
+        console.log("Cannot connect to Database", error);
     }
 }
 
 const app = express();
 app.use(express.json());
 app.use(cors());
+dotenv.config();
 
 connectDB();
 
